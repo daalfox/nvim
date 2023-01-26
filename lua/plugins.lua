@@ -1,6 +1,9 @@
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
+
     use { "catppuccin/nvim", as = "catppuccin" }
+    use 'itchyny/lightline.vim'
+
 
     use 'neovim/nvim-lspconfig'
 
@@ -21,9 +24,15 @@ return require('packer').startup(function(use)
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
+    -- git stuff
     use 'tpope/vim-fugitive'
     use {
         'lewis6991/gitsigns.nvim',
         tag = 'release'
+    }
+
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
     }
 end)
