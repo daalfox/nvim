@@ -11,7 +11,7 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
@@ -43,7 +43,7 @@ local function on_attach_keymaps(bufnr)
 end
 
 local function on_attach_default(_, bufnr)
-    vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]])
+    vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
     on_attach_keymaps(bufnr)
 end
 
@@ -74,7 +74,17 @@ require 'lspconfig'.taplo.setup {
 -- typescript
 require 'lspconfig'.tsserver.setup {
     on_attach = on_attach_default,
-    capabilities = capabilities
+    capabilities = capabilities,
+    root_dir = require 'lspconfig'.util.root_pattern("package.json"),
+}
+-- deno ts
+vim.g.markdown_fenced_languages = {
+    "ts=typescript"
+}
+require 'lspconfig'.denols.setup {
+    on_attach = on_attach_default,
+    capabilities = capabilities,
+    root_dir = require 'lspconfig'.util.root_pattern("deno.jsonc"),
 }
 
 -- lua
