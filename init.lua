@@ -6,10 +6,11 @@ vim.cmd("set number")
 vim.cmd("set relativenumber")
 
 require 'eye_candy'
+require('gitsigns').setup()
 require 'mappings'
 require 'plugins'
 require 'lsp'
 require 'luasnip_cfg'
 require 'diagnostic_cfg'
 require 'telescope_cfg'
-require('gitsigns').setup()
+require 'treesitter_cfg'

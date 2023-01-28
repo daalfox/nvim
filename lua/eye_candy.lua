@@ -5,4 +5,7 @@ require("catppuccin").setup({
     },
 })
 vim.cmd.colorscheme "catppuccin"
-vim.opt.background = "light"
+vim.opt.background = "dark"
+vim.g.lightline = {
+    colorscheme = 'catppuccin',
+}
