@@ -76,6 +76,7 @@ require 'lspconfig'.tsserver.setup {
     on_attach = on_attach_default,
     capabilities = capabilities,
     root_dir = require 'lspconfig'.util.root_pattern("package.json"),
+    single_file_support = false,
 }
 -- deno ts
 vim.g.markdown_fenced_languages = {
