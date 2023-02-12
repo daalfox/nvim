@@ -7,7 +7,7 @@ cmp.setup({
         end,
     },
     mapping = cmp.mapping.preset.insert({
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-b>'] = cmp.mapping.scroll_docs( -4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
@@ -89,7 +89,7 @@ require 'lspconfig'.denols.setup {
 }
 
 -- lua
-require 'lspconfig'.sumneko_lua.setup {
+require 'lspconfig'.lua_ls.setup {
     on_attach = on_attach_default,
     capabilities = capabilities,
     settings = {
