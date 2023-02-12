@@ -2,6 +2,7 @@ return require('packer').startup(function(use)
         use 'wbthomason/packer.nvim'
 
         use { "catppuccin/nvim", as = "catppuccin" }
+        use "savq/melange-nvim"
 
         use 'neovim/nvim-lspconfig'
 
