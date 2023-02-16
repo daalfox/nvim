@@ -1,4 +1,5 @@
 local cmp = require 'cmp'
+local lsp = require 'lspconfig'
 
 cmp.setup({
     snippet = {
@@ -53,48 +54,48 @@ local function on_attach_prettier(_, bufnr)
 end
 
 -- markdown
-require 'lspconfig'.marksman.setup {
+lsp.marksman.setup {
     on_attach = on_attach_default,
     capabilities = capabilities
 }
 -- vue
-require 'lspconfig'.volar.setup {
+lsp.volar.setup {
     capabilities = capabilities
 }
 -- tailwind
-require 'lspconfig'.tailwindcss.setup {
+lsp.tailwindcss.setup {
     on_attach = on_attach_prettier,
     capabilities = capabilities
 }
 -- rust
-require 'lspconfig'.rust_analyzer.setup {
+lsp.rust_analyzer.setup {
     on_attach = on_attach_default,
     capabilities = capabilities
 }
 -- toml
-require 'lspconfig'.taplo.setup {
+lsp.taplo.setup {
     on_attach = on_attach_default,
     capabilities = capabilities
 }
 -- typescript
-require 'lspconfig'.tsserver.setup {
+lsp.tsserver.setup {
     on_attach = on_attach_default,
     capabilities = capabilities,
-    root_dir = require 'lspconfig'.util.root_pattern("package.json"),
+    root_dir = lsp.util.root_pattern("package.json"),
     single_file_support = false,
 }
 -- deno ts
 vim.g.markdown_fenced_languages = {
     "ts=typescript"
 }
-require 'lspconfig'.denols.setup {
+lsp.denols.setup {
     on_attach = on_attach_default,
     capabilities = capabilities,
-    root_dir = require 'lspconfig'.util.root_pattern("deno.jsonc"),
+    root_dir = lsp.util.root_pattern("deno.jsonc"),
 }
 
 -- lua
-require 'lspconfig'.lua_ls.setup {
+lsp.lua_ls.setup {
     on_attach = on_attach_default,
     capabilities = capabilities,
     settings = {
