@@ -52,6 +52,11 @@ local function on_attach_prettier(_, bufnr)
     on_attach_keymaps(bufnr)
 end
 
+-- markdown
+require 'lspconfig'.marksman.setup {
+    on_attach = on_attach_default,
+    capabilities = capabilities
+}
 -- vue
 require 'lspconfig'.volar.setup {
     capabilities = capabilities
