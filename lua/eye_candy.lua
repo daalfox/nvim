@@ -6,4 +6,4 @@ require("catppuccin").setup({
     },
 })
 vim.cmd.colorscheme "melange"
-vim.opt.background = "light"
+vim.opt.background = "dark"
