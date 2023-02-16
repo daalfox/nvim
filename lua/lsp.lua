@@ -24,7 +24,7 @@ cmp.setup({
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local function on_attach_keymaps(bufnr)
+local function on_attach_default(_, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
@@ -43,16 +43,6 @@ local function on_attach_keymaps(bufnr)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-local function on_attach_default(_, bufnr)
-    vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
-    on_attach_keymaps(bufnr)
-end
-
-local function on_attach_prettier(_, bufnr)
-    vim.cmd([[autocmd BufWritePre <buffer> lua vim.cmd(":Prettier .")]])
-    on_attach_keymaps(bufnr)
-end
-
 -- markdown
 lsp.marksman.setup {
     on_attach = on_attach_default,
@@ -60,11 +50,16 @@ lsp.marksman.setup {
 }
 -- vue
 lsp.volar.setup {
+    on_attach = on_attach_default,
+    capabilities = capabilities
+}
+lsp.svelte.setup {
+    on_attach = on_attach_default,
     capabilities = capabilities
 }
 -- tailwind
 lsp.tailwindcss.setup {
-    on_attach = on_attach_prettier,
+    on_attach = on_attach_default,
     capabilities = capabilities
 }
 -- rust
@@ -74,6 +69,11 @@ lsp.rust_analyzer.setup {
 }
 -- toml
 lsp.taplo.setup {
+    on_attach = on_attach_default,
+    capabilities = capabilities
+}
+-- json
+lsp.jsonls.setup {
     on_attach = on_attach_default,
     capabilities = capabilities
 }
