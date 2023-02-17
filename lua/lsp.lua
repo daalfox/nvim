@@ -50,6 +50,7 @@ local function on_attach_lsp(_, bufnr)
                 return client.name ~= "null-ls"
             end,
             bufnr = bufnr,
+            { async = true }
         })
     end, bufopts)
 end
@@ -62,6 +63,7 @@ local function on_attach_null_ls(_, bufnr)
                 return client.name == "null-ls"
             end,
             bufnr = bufnr,
+            { async = true }
         })
     end, bufopts)
 end
