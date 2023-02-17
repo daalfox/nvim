@@ -24,7 +24,7 @@ cmp.setup({
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local function on_attach_default(_, bufnr)
+local function on_attach_general(_, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
@@ -40,46 +40,69 @@ local function on_attach_default(_, bufnr)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+end
+local function on_attach_lsp(_, bufnr)
+    on_attach_general(bufnr)
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    vim.keymap.set('n', '<space>f', function()
+        vim.lsp.buf.format({
+            filter = function(client)
+                return client.name ~= "null-ls"
+            end,
+            bufnr = bufnr,
+        })
+    end, bufopts)
+end
+local function on_attach_null_ls(_, bufnr)
+    on_attach_general(bufnr)
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    vim.keymap.set('n', '<space>f', function()
+        vim.lsp.buf.format({
+            filter = function(client)
+                return client.name == "null-ls"
+            end,
+            bufnr = bufnr,
+        })
+    end, bufopts)
 end
 
 -- markdown
 lsp.marksman.setup {
-    on_attach = on_attach_default,
+    on_attach = on_attach_null_ls,
     capabilities = capabilities
 }
 -- vue
 lsp.volar.setup {
-    on_attach = on_attach_default,
+    on_attach = on_attach_null_ls,
     capabilities = capabilities
 }
 lsp.svelte.setup {
-    on_attach = on_attach_default,
+    on_attach = on_attach_null_ls,
     capabilities = capabilities
 }
 -- tailwind
 lsp.tailwindcss.setup {
-    on_attach = on_attach_default,
+    on_attach = on_attach_null_ls,
     capabilities = capabilities
 }
 -- rust
 lsp.rust_analyzer.setup {
-    on_attach = on_attach_default,
+    on_attach = on_attach_lsp,
     capabilities = capabilities
 }
 -- toml
 lsp.taplo.setup {
-    on_attach = on_attach_default,
+    on_attach = on_attach_lsp,
     capabilities = capabilities
 }
 -- json
 lsp.jsonls.setup {
-    on_attach = on_attach_default,
+    on_attach = on_attach_null_ls,
     capabilities = capabilities
 }
 -- typescript
 lsp.tsserver.setup {
-    on_attach = on_attach_default,
+    on_attach = on_attach_null_ls,
     capabilities = capabilities,
     root_dir = lsp.util.root_pattern("package.json"),
     single_file_support = false,
@@ -89,14 +112,14 @@ vim.g.markdown_fenced_languages = {
     "ts=typescript"
 }
 lsp.denols.setup {
-    on_attach = on_attach_default,
+    on_attach = on_attach_lsp,
     capabilities = capabilities,
     root_dir = lsp.util.root_pattern("deno.jsonc"),
 }
 
 -- lua
 lsp.lua_ls.setup {
-    on_attach = on_attach_default,
+    on_attach = on_attach_lsp,
     capabilities = capabilities,
     settings = {
         Lua = {
