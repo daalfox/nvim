@@ -33,4 +33,5 @@ return require('packer').startup(function(use)
         run = ':TSUpdate'
     }
     use 'jose-elias-alvarez/null-ls.nvim'
+    use 'nvim-tree/nvim-tree.lua'
 end)
