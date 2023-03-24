@@ -8,11 +8,11 @@ cmp.setup({
         end,
     },
     mapping = cmp.mapping.preset.insert({
-        ['<C-b>'] = cmp.mapping.scroll_docs( -4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-f>'] = cmp.mapping.scroll_docs(4),
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<C-e>'] = cmp.mapping.abort(),
+            ['<CR>'] = cmp.mapping.confirm({ select = false }),
     }),
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
@@ -68,6 +68,11 @@ local function on_attach_null_ls(_, bufnr)
     end, bufopts)
 end
 
+-- bash
+lsp.bashls.setup {
+    on_attach = on_attach_lsp,
+    capabilities = capabilities
+}
 -- markdown
 lsp.marksman.setup {
     on_attach = on_attach_null_ls,
@@ -99,6 +104,10 @@ lsp.taplo.setup {
 }
 -- json
 lsp.jsonls.setup {
+    on_attach = on_attach_null_ls,
+    capabilities = capabilities
+}
+lsp.yamlls.setup {
     on_attach = on_attach_null_ls,
     capabilities = capabilities
 }
