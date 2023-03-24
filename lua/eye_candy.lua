@@ -7,3 +7,4 @@ require("catppuccin").setup({
 })
 vim.cmd.colorscheme "melange"
 vim.opt.background = "dark"
+vim.opt.colorcolumn = "72"
