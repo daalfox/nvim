@@ -23,10 +23,7 @@ return require('packer').startup(function(use)
 
     -- git stuff
     use 'tpope/vim-fugitive'
-    use {
-        'lewis6991/gitsigns.nvim',
-        tag = 'release'
-    }
+    use 'lewis6991/gitsigns.nvim'
 
     use {
         'nvim-treesitter/nvim-treesitter',
