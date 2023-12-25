@@ -17,8 +17,7 @@ return require('packer').startup(function(use)
     use "rafamadriz/friendly-snippets"
 
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.1',
-        requires = { { 'nvim-lua/plenary.nvim' } }
+        'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
     -- git stuff
