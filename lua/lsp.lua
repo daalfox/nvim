@@ -118,6 +118,20 @@ lsp.tsserver.setup {
     capabilities = capabilities,
     root_dir = lsp.util.root_pattern("package.json"),
     single_file_support = false,
+    init_options = {
+        plugins = {
+            {
+                name = "@vue/typescript-plugin",
+                location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
+                languages = { "javascript", "typescript", "vue" },
+            },
+        },
+    },
+    filetypes = {
+        "javascript",
+        "typescript",
+        "vue",
+    },
 }
 -- deno ts
 vim.g.markdown_fenced_languages = {
@@ -153,4 +167,10 @@ lsp.lua_ls.setup {
             },
         },
     },
+}
+
+-- sql
+require 'lspconfig'.sqlls.setup {
+    on_attach = on_attach_lsp,
+    capabilities = capabilities,
 }
